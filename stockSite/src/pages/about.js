@@ -12,7 +12,7 @@ const About = () => {
       }}
     >
       <html>
-      <h4>Apple stock analysis for CMSC 437 at University of Maryland, Baltimore County.</h4>
+      <h4>Apple stock analysis for CMSC 436 at University of Maryland, Baltimore County.</h4>
       <h4>Collaborators: Claire Kim, Yara Younis, and Megha Singh</h4>
       </html>
       
