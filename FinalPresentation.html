@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+        .box{
+          width: 1350px;
+          height: 700px;
+          border: 1px black solid;
+          padding: 20px;
+          margin: 30px
+        }
+    </style>
+</head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load('visualization', '1', {packages: ['controls', 'charteditor']});
+        google.setOnLoadCallback(prepData);
+
+        var chargingBrickRemovalData;
+        var iPadReleaseData;
+        var iMacReleaseData;
+        var iMacRelease_HolidaySeasonData;
+
+        function prepData()
+        {
+            var _dataSourceURL = 'https://docs.google.com/spreadsheets/d/1dA8PHN4UaMDZ02Tqt4HrcuShV90zWnPkbUpGb2_Dtzg';
+            var _urlSubWoQuery_chargingBrickRemoval = '/gviz/tq?range=A10043:E10049&tq=';
+            var _urlSubWoQuery_iPadRelease = '/gviz/tq?range=A7374:E7393&tq=';
+            var _urlSubWoQuery_iMacRelease = '/gviz/tq?range=A4396:E4415&tq=';
+            var _urlSubWoQuery_iMacRelease_HolidaySeason = '/gviz/tq?range=A4558:E4565&tq=';
+            var queryString = encodeURIComponent('SELECT A, D, B, E, C');
+
+            var query_chargingBrickRemoval = new google.visualization.Query(_dataSourceURL + _urlSubWoQuery_chargingBrickRemoval + queryString);
+            var query_iPadRelease = new google.visualization.Query(_dataSourceURL + _urlSubWoQuery_iPadRelease + queryString);
+            var query_iMacRelease = new google.visualization.Query(_dataSourceURL + _urlSubWoQuery_iMacRelease + queryString);
+            var query_iMacRelease_HolidaySeason = new google.visualization.Query(_dataSourceURL + _urlSubWoQuery_iMacRelease_HolidaySeason + queryString);
+            query_chargingBrickRemoval.send(handleResponse_chargingBrickRemoval);
+            query_iPadRelease.send(handleResponse_iPadRelease);
+            query_iMacRelease.send(handleResponse_iMacRelease);
+            query_iMacRelease_HolidaySeason.send(handleResponse_iMacRelease_HolidaySeason);
+
+            const myTimeout = setTimeout(drawDiffChart, 2000);
+        }
+
+        function handleResponse_chargingBrickRemoval(response)
+        {
+            if (response.isError()) {
+                    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                    return;}
+            chargingBrickRemovalData = response.getDataTable();
+        }
+
+        function handleResponse_iPadRelease(response)
+        {
+            if (response.isError()) {
+                    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                    return;}
+            iPadReleaseData = response.getDataTable();
+        }
+
+        function handleResponse_iMacRelease(response)
+        {
+            if (response.isError()) {
+                    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                    return;}
+            iMacReleaseData = response.getDataTable();
+        }
+
+        function handleResponse_iMacRelease_HolidaySeason(response)
+        {
+            if (response.isError()) {
+                    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                    return;}
+            iMacRelease_HolidaySeasonData = response.getDataTable();
+        }
+
+        function drawDiffChart() {// Do nothing}
+
+          chargingBrickRemoval.onclick = function()
+          {
+              var chart = new google.visualization.ChartWrapper({
+                chartType: 'CandlestickChart',
+                containerId: 'demo',
+                dataTable : chargingBrickRemovalData,
+                options:{
+                    title: 'Apple Stock Market Summary - Removal of charging brick',
+                    vAxis: {title: "Apple Stock Attributes",
+                            format: "short"},
+                    hAxis: {title: "Date",
+                            format: 'dd-MMM-yyyy'},
+                    height: 700,
+                    width: 1350
+                }
+              });
+              chart.draw();
+          }
+          iPadRelease.onclick = function()
+          {
+              var chart = new google.visualization.ChartWrapper({
+                chartType: 'CandlestickChart',
+                containerId: 'demo',
+                dataTable : iPadReleaseData,
+                options:{
+                    title: 'Apple Stock Market Summary - 1st iPad release',
+                    vAxis: {title: "Apple Stock Attributes",
+                            format: "short"},
+                    hAxis: {title: "Date",
+                            format: 'dd-MMM-yyyy'},
+                    height: 700,
+                    width: 1350
+                }
+              });
+              chart.draw();
+          }
+          iMacRelease.onclick = function()
+          {
+              var chart = new google.visualization.ChartWrapper({
+                chartType: 'CandlestickChart',
+                containerId: 'demo',
+                dataTable : iMacReleaseData,
+                options:{
+                    title: 'Apple Stock Market Summary - 1st iMac release',
+                    vAxis: {title: "Apple Stock Attributes",
+                            format: "short"},
+                    hAxis: {title: "Date",
+                            format: 'dd-MMM-yyyy'},
+                    height: 700,
+                    width: 1350
+                }
+              });
+              chart.draw();
+          }
+          iMacRelease_HolidaySeason.onclick = function()
+          {
+              var chart = new google.visualization.ChartWrapper({
+                chartType: 'CandlestickChart',
+                containerId: 'demo',
+                dataTable : chargingBrickRemovalData,
+                options:{
+                    title: 'Apple Stock Market Summary - iMac release\'s impact on Holiday Season',
+                    vAxis: {title: "Apple Stock Attributes",
+                            format: "short"},
+                    hAxis: {title: "Date",
+                            format: 'dd-MMM-yyyy'},
+                    height: 700,
+                    width: 1350
+                }
+              });
+              chart.draw();
+          }
+
+        }
+    </script>
+
+<div id="dashboard">
+    <div id="demo" class="box" height="700">Visualization Space</div>
+    <button type="button" id="chargingBrickRemoval" pad>Charging brick removal</button>
+    <button type="button" id="iPadRelease">iPad release</button>
+    <button type="button" id="iMacRelease">iMac release</button>
+    <button type="button" id="iMacRelease_HolidaySeason">iMac release's impact on Holiday Season</button>
+</div>
+</html>
