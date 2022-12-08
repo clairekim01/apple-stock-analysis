@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+        .box{
+          width: 1350px;
+          height: 700px;
+          border: 1px black solid;
+          padding: 20px;
+          margin: 30px
+        }
+    </style>
+</head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load('visualization', '1', {packages: ['controls', 'charteditor']});
+        google.setOnLoadCallback(prepData);
+
+        var open_beforePandemic_data;
+        var high_beforePandemic_data;
+        var low_beforePandemic_data;
+        var close_beforePandemic_data;
+
+        var open_afterPandemic_data;
+        var high_afterPandemic_data;
+        var low_afterPandemic_data;
+        var close_afterPandemic_data;
+
+        function prepData()
+        {
+            var _dataSourceURL = 'https://docs.google.com/spreadsheets/d/1dA8PHN4UaMDZ02Tqt4HrcuShV90zWnPkbUpGb2_Dtzg';
+            var _urlSubWoQuery_beforePandemic = '/gviz/tq?range=A9904:9904&tq=';
+            var _urlSubWoQuery_afterPandemic = '/gviz/tq?range=A10308:10308&tq=';
+            var queryString_Open = encodeURIComponent('SELECT A, B');
+            var queryString_High = encodeURIComponent('SELECT A, C');
+            var queryString_Low = encodeURIComponent('SELECT A, D');
+            var queryString_Close = encodeURIComponent('SELECT A, E');
+
+            var queryString_Open_beforePandemic = new google.visualization.Query(_dataSourceURL + _urlSubWoQuery_beforePandemic + queryString_Open);
+            var queryString_High_beforePandemic = new google.visualization.Query(_dataSourceURL + _urlSubWoQuery_beforePandemic + queryString_High);
+            var queryString_Low_beforePandemic = new google.visualization.Query(_dataSourceURL + _urlSubWoQuery_beforePandemic + queryString_Low);
+            var queryString_Close_beforePandemic = new google.visualization.Query(_dataSourceURL + _urlSubWoQuery_beforePandemic + queryString_Close);
+
+            var queryString_Open_afterPandemic = new google.visualization.Query(_dataSourceURL + _urlSubWoQuery_afterPandemic + queryString_Open);
+            var queryString_High_afterPandemic = new google.visualization.Query(_dataSourceURL + _urlSubWoQuery_afterPandemic + queryString_High);
+            var queryString_Low_afterPandemic = new google.visualization.Query(_dataSourceURL + _urlSubWoQuery_afterPandemic + queryString_Low);
+            var queryString_Close_afterPandemic = new google.visualization.Query(_dataSourceURL + _urlSubWoQuery_afterPandemic + queryString_Close);
+
+            queryString_Open_beforePandemic.send(handleResponse_open_beforePandemic);
+            queryString_High_beforePandemic.send(handleResponse_high_beforePandemic);
+            queryString_Low_beforePandemic.send(handleResponse_low_beforePandemic);
+            queryString_Close_beforePandemic.send(handleResponse_close_beforePandemic);
+
+            queryString_Open_afterPandemic.send(handleResponse_open_afterPandemic);
+            queryString_High_afterPandemic.send(handleResponse_high_afterPandemic);
+            queryString_Low_afterPandemic.send(handleResponse_low_afterPandemic);
+            queryString_Close_afterPandemic.send(handleResponse_close_afterPandemic);
+
+            const myTimeout = setTimeout(drawDiffChart, 2000);
+        }
+
+        function printErrorMessage(response)
+        {
+          if (response.isError()) {
+                alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                return;}
+        }
+
+        function handleResponse_open_beforePandemic(response)
+        {
+            printErrorMessage(response);
+            open_beforePandemic_data = response.getDataTable();
+        }
+
+        function handleResponse_high_beforePandemic(response)
+        {
+            printErrorMessage(response);
+            high_beforePandemic_data = response.getDataTable();
+        }
+
+        function handleResponse_low_beforePandemic(response)
+        {
+            printErrorMessage(response);
+            low_beforePandemic_data = response.getDataTable();
+        }
+
+        function handleResponse_close_beforePandemic(response)
+        {
+            printErrorMessage(response);
+            close_beforePandemic_data = response.getDataTable();
+        }
+
+        function handleResponse_open_afterPandemic(response)
+        {
+            printErrorMessage(response);
+            open_afterPandemic_data = response.getDataTable();
+        }
+
+        function handleResponse_high_afterPandemic(response)
+        {
+            printErrorMessage(response);
+            high_afterPandemic_data = response.getDataTable();
+        }
+
+        function handleResponse_low_afterPandemic(response)
+        {
+            printErrorMessage(response);
+            low_afterPandemic_data = response.getDataTable();
+        }
+
+        function handleResponse_close_afterPandemic(response)
+        {
+            printErrorMessage(response);
+            close_afterPandemic_data = response.getDataTable();
+        }
+
+        function drawDiffChart() {
+
+          toggleOpen.onclick = function()
+          {
+            var options = { diff: { newData: { widthFactor: 0.4} } };
+            var openDiff = new google.visualization.ColumnChart(document.getElementById('demo'));
+            var openDiffData = openDiff.computeDiff(open_beforePandemic_data, open_afterPandemic_data);
+            openDiff.draw(openDiffData, options);
+          }
+
+          toggleHigh.onclick = function()
+          {
+            var options = { diff: { newData: { widthFactor: 0.4} } };
+            var highDiff = new google.visualization.ColumnChart(document.getElementById('demo'));
+            var highDiffData = highDiff.computeDiff(high_beforePandemic_data, high_afterPandemic_data);
+            highDiff.draw(highDiffData, options);
+          }
+
+          toggleLow.onclick = function()
+          {
+            var options = { diff: { newData: { widthFactor: 0.4 } } };
+            var lowDiff = new google.visualization.ColumnChart(document.getElementById('demo'));
+            var lowDiffData = lowDiff.computeDiff(low_beforePandemic_data, low_afterPandemic_data);
+            lowDiff.draw(lowDiffData, options);
+          }
+
+          toggleClose.onclick = function()
+          {
+            var options = { diff: { newData: { widthFactor: 0.4 } } };
+            var closeDiff = new google.visualization.ColumnChart(document.getElementById('demo'));
+            var closeDiffData = closeDiff.computeDiff(close_beforePandemic_data, close_afterPandemic_data);
+            closeDiff.draw(closeDiffData, options);
+          }
+
+        }
+
+    </script>
+
+<div id="dashboard">
+    <div id="demo" class="box" height="700">Visualization Space</div>
+    <button type="button" id="toggleOpen">Open</button>
+    <button type="button" id="toggleHigh">High</button>
+    <button type="button" id="toggleLow">Low</button>
+    <button type="button" id="toggleClose">Close</button>
+</div>
+</html>
