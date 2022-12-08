@@ -10,7 +10,7 @@ return (
 		height: '100vh'
 	}}
 	>
-	<h4>home page</h4>
+	<h4>Visualizations</h4>
 	</div>
 );
 };
