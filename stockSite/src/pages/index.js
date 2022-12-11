@@ -20,14 +20,19 @@ return (
 	<p><span style={{fontWeight: 'bold'}}>Close stock price: </span>  last price a stock trades at when the market closes</p>
 	<h2>Visualizations</h2>
 
-	<div style={{display:"flex", flexDirection: 'row', justifyContent: 'space-between', flexShrink: "0", width: "1200px", height: "1000px"}}> 
-		<div class="flourish-embed flourish-scatter" data-src="visualisation/12127894" flexGrow="1" data-width="540px">
+	<div style={{display:"flex", flexDirection: 'row', flexWrap:"wrap", justifyContent: 'space-between', flexShrink: "0", width: "1200px", height: "1000px"}}> 
+		<div class="flourish-embed flourish-scatter" data-src="visualisation/12127894" flexGrow="1" data-width="580px">
 			<Helmet>
 				<script src="https://public.flourish.studio/resources/embed.js"></script>
 			</Helmet>
 		</div>
 
-		<div class="flourish-embed flourish-chart" data-src="visualisation/12127890" flexGrow="1" data-width="540px">
+		<div class="flourish-embed flourish-chart" data-src="visualisation/12127890" flexGrow="1" data-width="580px">
+			<Helmet>
+				<script src="https://public.flourish.studio/resources/embed.js"></script>
+			</Helmet>
+		</div>
+		<div class="flourish-embed flourish-chart" data-src="visualisation/12130563" flexGrow="1" data-width="580px">
 			<Helmet>
 				<script src="https://public.flourish.studio/resources/embed.js"></script>
 			</Helmet>
