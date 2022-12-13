@@ -71,4 +71,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ## Running the html files in this folder
 
-Since the database used in the MultipleLineChart.html file is stored on Google Sheets, and the html file is run locally, the CORS error creeps up. To fix this, install a CORS extension to the browser. The one used while making this project is : "Allow CORS: Access-Control-Allow-Origin" which can be found here, https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en. After this extension is added, toggle it ON and open the MultipleLineChart.html file.
+Since the database used in the html files is stored on Google Sheets, and the html file is run locally, the CORS error creeps up. To fix this, install a CORS extension to the browser. The one used while making this project is : "Allow CORS: Access-Control-Allow-Origin" which can be found here, https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en. After this extension is added, toggle it ON and open the MultipleLineChart.html file.
