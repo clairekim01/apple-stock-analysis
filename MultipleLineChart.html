@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load('visualization', '1', {packages: ['controls', 'charteditor']});
+        google.setOnLoadCallback(prepData);
+
+        function prepData() 
+        {
+            var _dataSourceURL = 'https://docs.google.com/spreadsheets/d/1dA8PHN4UaMDZ02Tqt4HrcuShV90zWnPkbUpGb2_Dtzg'
+            var _urlSubWoQuery = '/gviz/tq?range=&tq='
+            var queryStringClose = encodeURIComponent('SELECT A, B, C, D, E');
+
+            var query = new google.visualization.Query(_dataSourceURL + _urlSubWoQuery + queryStringClose);
+            query.send(handleSampleDataQueryResponse);
+        }
+
+        function handleSampleDataQueryResponse(response) 
+        {
+            if (response.isError()) {
+                    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                    return;
+                }
+
+            var data = response.getDataTable();
+    
+            var dash = new google.visualization.Dashboard(document.getElementById('dashboard'));
+
+            var control = new google.visualization.ControlWrapper({
+                controlType: 'ChartRangeFilter',
+                containerId: 'control_div',
+                options: {
+                    filterColumnIndex: 0,
+                    ui: {
+                        'labelStacking': 'vertical',
+                        'allowTyping': false,
+                        'allowMultiple': true,
+                        chartOptions: 
+                        {
+                            height: 50,
+                            width: 600,
+                            chartArea: {
+                                width: '80%'
+                            }
+                        }
+                    }
+                }
+            });
+
+            var chart = new google.visualization.ChartWrapper({
+                chartType: 'LineChart',
+                containerId: 'chart_div',
+                options:{
+                    title: 'Apple Stock Market Summary',
+                    vAxis: {title: "Apple Stock Attributes",
+                            format: "short"},
+                    hAxis: {title: "Date",
+                            format: 'dd-MMM-yyyy'}
+                }
+            });
+
+            function setOptions (wrapper) 
+            {
+                wrapper.setOption('height', 700);
+                wrapper.setOption('width', 1350);
+                wrapper.setOption('chartArea.width', '80%');
+            }
+    
+            setOptions(chart);
+            
+            dash.bind([control], [chart]);
+            dash.draw(data);
+            google.visualization.events.addListener(control, 'statechange', function () {
+                var v = control.getState();
+                document.getElementById('dbgchart').innerHTML = v.range.start.toString().substring(4, 15)+ ' to ' 
+                                                                +v.range.end.toString().substring(4, 15);
+                return 0;
+            });
+
+            var toggleColumns = [true, true, true, true]
+            var toggleOpen = document.getElementById("toggleOpen");
+            toggleOpen.onclick = function() 
+            {
+                var columnsToHide = [];
+                toggleColumns[0] = !toggleColumns[0];
+                view = new google.visualization.DataView(data);
+                for (let i = 0; i < toggleColumns.length; i++)
+                {
+                    if(!toggleColumns[i])
+                    {
+                        columnsToHide.push(i+1)
+                    }
+                }
+                view.hideColumns(columnsToHide)
+                dash.draw(view);
+            }
+
+            var toggleHigh = document.getElementById("toggleHigh");
+            toggleHigh.onclick = function() 
+            {
+                var columnsToHide = [];
+                toggleColumns[1] = !toggleColumns[1];
+                view = new google.visualization.DataView(data);
+                for (let i = 0; i < toggleColumns.length; i++)
+                {
+                    if(!toggleColumns[i])
+                    {
+                        columnsToHide.push(i+1)
+                    }
+                }
+                view.hideColumns(columnsToHide)
+                dash.draw(view);
+            }
+
+            var toggleLow = document.getElementById("toggleLow");
+            toggleLow.onclick = function() 
+            {
+                var columnsToHide = [];
+                toggleColumns[2] = !toggleColumns[2];
+                view = new google.visualization.DataView(data);
+                for (let i = 0; i < toggleColumns.length; i++)
+                {
+                    if(!toggleColumns[i])
+                    {
+                        columnsToHide.push(i+1)
+                    }
+                }
+                view.hideColumns(columnsToHide)
+                dash.draw(view);
+            }
+
+            var toggleClose = document.getElementById("toggleClose");
+            toggleClose.onclick = function() 
+            {
+                var columnsToHide = [];
+                toggleColumns[3] = !toggleColumns[3];
+                view = new google.visualization.DataView(data);
+                for (let i = 0; i < toggleColumns.length; i++)
+                {
+                    if(!toggleColumns[i])
+                    {
+                        columnsToHide.push(i+1)
+                    }
+                }
+                view.hideColumns(columnsToHide)
+                dash.draw(view);
+            }
+}
+
+</script>
+<div id="dashboard">
+    <div id="chart_div"></div>
+    <div id="control_div"></div>
+    <div id="categorySelector_div"></div>
+<p><span id='dbgchart'></span></p>
+<button type="button" id="toggleOpen">Open</button>
+<button type="button" id="toggleHigh">High</button>
+<button type="button" id="toggleLow">Low</button>
+<button type="button" id="toggleClose">Close</button>
+</div>
+</html>
