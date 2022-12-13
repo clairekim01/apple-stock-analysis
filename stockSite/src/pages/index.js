@@ -1,5 +1,13 @@
 import React from 'react';
 import { Helmet } from "react-helmet";
+import MyImage1 from '../../images/vis1';
+import MyImage2 from '../../images/vis2';
+import MyImage3 from '../../images/vis3';
+import MyImage4 from '../../images/vis4';
+import MyImage5 from '../../images/vis5';
+import MyImage6 from '../../images/vis6';
+import MyImage7 from '../../images/vis7';
+import MyImage8 from '../../images/vis8';
 
 const Home = () => {
 return (
@@ -20,7 +28,7 @@ return (
 	<p><span style={{fontWeight: 'bold'}}>Close stock price: </span>  last price a stock trades at when the market closes</p>
 	<h2>Visualizations</h2>
 
-	<div style={{display:"flex", flexDirection: 'row', flexWrap:"wrap", justifyContent: 'space-between', flexShrink: "0", width: "1200px", height: "1000px"}}> 
+	<div style={{display:"flex", flexDirection: 'row', flexWrap:"wrap", justifyContent: 'space-between', flexShrink: "0", width: "1180px", height: "1000px"}}> 
 		<div class="flourish-embed flourish-scatter" data-src="visualisation/12127894" flexGrow="1" data-width="580px">
 			<Helmet>
 				<script src="https://public.flourish.studio/resources/embed.js"></script>
@@ -37,6 +45,14 @@ return (
 				<script src="https://public.flourish.studio/resources/embed.js"></script>
 			</Helmet>
 		</div>
+		<img src={MyImage1} alt="vis1" width="700" height="600" />
+		<img src={MyImage2} alt="vis2" width="700" height="600"/>
+		<img src={MyImage3} alt="vis3" width="700" height="600"/>
+		<img src={MyImage4} alt="vis4" width="700" height="600" />
+		<img src={MyImage5} alt="vis5" width="700" height="600" />
+		<img src={MyImage6} alt="vis6" width="700" height="600" />
+		<img src={MyImage7} alt="vis7" width="700" height="600" />
+		<img src={MyImage8} alt="vis8" width="700" height="600"/>
 	</div>
 
 	</body>
